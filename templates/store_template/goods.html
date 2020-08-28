@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+	
+}
+		
+body{
+	background: url("/static/index_img/beijin.jpg")
+	}
+
+.header{
+	width:1200px;
+	height:70px;
+	background-color:#44A23D;
+	margin:0 auto;
+	
+	}
+	
+.header img{
+	height: 60px;
+	margin-left: 20px;
+	margin-right: 10px;
+	margin-top: 5px
+}
+	
+.header .logo{
+	float: left
+}
+
+.header .title {
+	margin-top:15px;
+	font-size: 30px;
+	float: left;
+	color: white;
+	font-style: italic;
+}
+
+.header .return{
+	float: left;
+	margin-top: 32px;
+	margin-left: 20px
+}
+	
+.header .return a{
+	color: white;
+	font-size: 15px;
+	text-decoration: none;
+}
+	
+	.header .add{
+		float: right;
+		width: 70px;
+		height: 70px;
+		background-color: #FEA712;
+		
+	}		
+	
+	.header .add a{
+		color: white;
+		text-decoration: none;
+	    font-size: 70px;
+		line-height: 70px;
+	}
+	
+	.main{
+		width: 1200px;
+		height: 700px;
+		background-color: white;
+		margin: 0 auto;
+	}
+	
+	.main img{
+		height: 200px;
+		width: 200px;
+	}
+	
+	.main p{
+		text-align: center;
+	}
+	
+	.main li{
+		float: left;
+		list-style-type: none;
+		margin: 50px;
+	}
+</style>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="header">
+	   <div class="logo"><img src="/static/test_img/farm_logo_transparent.png" alt=".."></div>
+		<div class="title">卖品管理</div>
+		<div class="return"><a href="/index/">返回首页</a></div>
+		<div class="add"><a href="/store/add/">＋</a></div>
+	</div>
+	<div class="main">
+	  <ul>
+		<li>
+		  <div><a href="/store/modify/1"><img src="/static/test_img/caomei.jpg" alt="..."></a></div>
+			<p>草莓</p>
+		</li>
+		<li>
+			<div><a href="/store/modify/2"><img src="/static/test_img/caomei.jpg" alt="..."></a></div>
+			<p>草莓</p> 
+		</li>
+		<li> 
+			<div><a href="/store/modify/3"><img src="/static/test_img/caomei.jpg" alt="..."></a></div>
+			<p>草莓</p>
+		</li>
+		<li>
+		  <div><a href="/store/modify/4"><img src="/static/test_img/zhusun.jpg" alt="..."></a></div>
+			<p>竹笋</p>
+		</li>
+		 <li>
+		  <div><a href="/store/modify/5"><img src="/static/test_img/zhusun.jpg" alt="..."></a></div>
+			<p>竹笋</p>
+		</li>
+	  </ul>
+		
+	</div>
+	<script>
+        if (sessionStorage.getItem('name')==null) {
+            alert('请前往登录');
+            location.href = '/user/login/';
+        }
+        $.ajax({
+            url:'/store/productManage/',
+            method:'POST',
+            data:{names:sessionStorage.getItem('name')},
+            success:function (data) {
+                console.log(data);
+
+                imgs='';
+                for(var i=0;i<data['product_name'].length;i++)
+                    imgs +='<li><div><a href="/store/modify/'+data['product_id'][i]+'"><img src="/media/'+data["product_pic"][data['product_id'][i]]+'" alt="..."></a></div><p>'+data["product_name"][i]+'</p></li>';
+
+                $('.main ul').html(imgs)
+            }
+
+        })
+    </script>
+</body>
+</html>

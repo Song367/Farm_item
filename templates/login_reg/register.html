@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>农产品销售服务网登录</title>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <style>
+        *{margin: 0;padding: 0;}
+        body{background: url("/static/beijin.png") no-repeat;background-size: cover;z-index: 1;}
+        input{outline: none}
+        a{text-decoration: none;color: moccasin}
+        .box{width: 300px;height:400px;margin: 10% auto;padding-top: 20px;box-shadow: -2px 0px 30px 10px rgba(0,0,0,.9);border-radius: 20px;background-color: rgba(255,255,255,0.2)}
+        .box img{width: 60px;height: 70px;display: block;margin: 0 auto}
+        .web_name{width: 200px;display: block;margin:5px auto;text-align: center;font-family: 楷体;font-size: 20px;font-weight: bold}
+        .user_name{width: 200px;height:40px;margin: 20px auto;display: block;text-align: center;border-radius: 5px;border: 0;}
+        .user_name:hover{border:2px solid #96DF5B}
+        .user_pwd{width: 200px;height:40px;margin: 20px auto;display: block;text-align: center;border-radius: 5px;border: 0;}
+        .user_pwd:hover{border:2px solid #96DF5B}
+        .user_confirmPwd{width: 200px;height:40px;margin: 20px auto;display: block;text-align: center;border-radius: 5px;border: 0;}
+        .user_confirmPwd:hover{border:2px solid #96DF5B}
+        .user_login{width: 80px;height:35px;margin:10px 0 0 110px;display: inline-block;border-radius: 15px;border: none}
+        .user_login:hover{border:2px solid #96DF5B}
+        .user_login_reg{width:80px;height: 15px;margin-left: 10px;font-size: 10px;margin-top: 8px;display: inline-block;}
+    </style>
+</head>
+<body>
+<div class="box">
+    <img src="/static/logo/farm_logo_transparent.png">
+    <span class="web_name">农产品销售服务网</span>
+    <form>
+        <input type="text" name="username" placeholder="用户名" class="user_name" autocomplete="off">
+        <input type="password" name="passwd" placeholder="密码" class="user_pwd" autocomplete="off">
+        <input type="password" name="passwd2" placeholder="再次输入密码" class="user_confirmPwd" autocomplete="off">
+        <input type="button" name="login" value="注册" class="user_login">
+        <a class="user_login_reg" href="/user/login/">已有用户？</a>
+    </form>
+</div>
+<script>
+    $('[name=login]')[0].disabled='disabled';
+    $('[name=passwd]').blur(function () {
+        var p1=$('[name=passwd]').val();
+        var math1='1234567890';
+        var str1='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var x=0;  //判断是否是数字
+        var y=0;  //判断是否是字母
+        if(p1===''){
+            $('[name=passwd]').css('border','2px solid red');
+            $('[name=passwd]').val('');
+            $('[name=passwd]').attr('placeholder','密码不能为空');
+            $('[name=login]')[0].disabled='disabled';
+        }
+        if(p1.length<8){
+            //显示红色提示
+            $('[name=passwd]').css('border','2px solid red');
+            $('[name=passwd]').val('');
+            $('[name=passwd]').attr('placeholder','密码小于了8位');
+            $('[name=login]')[0].disabled='disabled';
+        }
+        else {
+            $('[name=passwd]').css('border','');
+
+            //判断密码的字母和数字个数
+            for (var i = 0; i < p1.length; i++) {
+                console.log(p1[i]);
+                for (var j = 0; j < math1.length; j++) {
+                    if (p1[i] === math1[j]) {
+                        x++;
+                    }
+                }
+                for (var k = 0; k < str1.length; k++) {
+
+                    if (p1[i] === str1[k]) {
+
+                        y++;
+                    }
+                }
+
+            }
+            console.log('x', x, 'y', y);
+            if(y===0){
+                $('[name=passwd]').css('border','2px solid red');
+                $('[name=passwd]').val('');
+                $('[name=passwd]').attr('placeholder','密码不能全是数字');
+                $('[name=login]')[0].disabled='disabled';
+            }
+            else{
+                $('[name=passwd]').css('border','');
+
+            }
+        }
+    });
+
+    $('[name=passwd2]').mouseout(function () {
+        var password1=$('[name=passwd]').val();
+
+        var password2=$('[name=passwd2]').val();
+        if(password1!==password2){
+            $('[name=passwd2]').css('border','2px solid red');
+            $('[name=passwd2]').val('');
+            $('[name=passwd2]').attr('placeholder','密码错误');
+            $('[name=login]')[0].disabled='disabled';
+        }
+        else{
+            $('[name=passwd2]').css('border','');
+            $('[name=login]')[0].disabled='';
+
+        }
+    });
+
+
+    //判断用户名
+    $('[name=username]').blur(function () {
+        $.ajax({
+            url:'/user/reg/',
+            type:'POST',
+            data:{name:$('[name=username]').val()},
+            success:function (data) {
+                console.log(data);
+                if(data['status']==='101'){
+                    $('[name=username]').css('border','2px solid red');
+                    $('[name=username]').val('');
+                    $('[name=username]').attr('placeholder','用户名重名');
+                    $('[name=login]')[0].disabled='disabled';
+                }
+                else{
+                    $('[name=username]').css('border','');
+                }
+            }
+        })
+    });
+
+    $('[name=login]').click(function () {
+        $.ajax({
+                url:'/user/reg/',
+                type:'POST',
+                data: {password:$('[name=passwd2]').val(),names:$('[name=username]').val()},
+                success:function (data) {
+                    if(data['status']==='1'){
+                        location.href='/user/login/';
+                    }
+                }
+        })
+    })
+</script>
+
+</body>
+</html>

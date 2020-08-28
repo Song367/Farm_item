@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<style>
+	   *{
+			margin: 0;
+			padding: 0;
+		}
+		
+		body{
+			background: url("/static/index_img/beijin.jpg")
+		}
+		
+		.header{
+			width: 1200px;
+			height: 70px;
+			background-color: #44A23D;
+			margin: 0 auto;
+		}
+		
+		.header img{
+			height: 60px;
+			margin-left: 20px;
+			float: left;
+			margin-top: 5px;
+		}
+		
+		.header p{
+			float: left;
+			font-size: 30px;
+			margin-top: 15px;
+			font-style: italic;
+			margin-left: 10px;
+			color: white;
+		}
+		
+		.header a{
+			float: right;
+			font-size: 20px;
+			font-style:normal;
+			text-decoration: none;
+			margin-right: 20px;
+			margin-top: 20px;
+			color: white;
+			border: 1px solid white;
+			border-radius: 5px;
+		}
+		
+		.main{
+			width: 1200px;
+			height: 800px;
+			background-color: white;
+			margin: 0px auto;
+		}
+		
+		hr{
+		 height: 1px;
+	     background-color:#FEA712;
+	     width: 590px;
+	     margin: 0px auto;
+	     border: 1px solid #FEA712;
+        }
+       .con0{
+			margin-left: 400px;
+			margin-top: 40px;
+		}
+		.title{
+			text-align:center;
+            line-height:100px;
+			font-size: 20px
+		}
+		
+		.con1{
+			margin-left: 400px;
+			margin-top: 20px;
+			width: 500px;
+			height: 100px;
+		}
+		
+		.con1 p{
+			float: left;
+			margin-top: 80px;	
+		}
+		
+		#picViewsBox{
+			width: 350px;
+			height: 50px;
+			
+			float: left;
+			margin-top:50px;
+				
+		}
+		
+		#upMultilImages{
+			width:69px;
+			float: right;
+			margin-top: 75px
+		
+		}
+		.con2{
+			margin-left: 400px;
+			margin-top: 50px;
+		}
+		
+		.con2 p{
+			float: left;
+			
+		}
+		.con3{
+			margin-left: 435px;
+			margin-top: 40px;
+		}
+		
+		.con4{
+			margin-left: 400px;
+			margin-top: 40px;
+		}
+		
+		.con5{
+			margin-left: 370px;
+			margin-top: 40px;
+		}
+		
+		.con6{
+			margin-left: 465px;
+			margin-top: 60px;
+		}
+		
+		.con7{
+			margin-right: 40px;
+		}
+		
+		.con9{
+			margin-left: 400px;
+			margin-top: 40px;
+			width: 1000px;
+			height: 40px;
+		}
+		
+		.con9 p{
+			float: left;
+		}
+		.con9 div{
+			float: left;
+			margin-right: 20px;
+		}
+		
+	</style>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="header">
+	   <div class="logo"><img src="/static/test_img/farm_logo_transparent.png" alt="">
+		   <p>修改卖品</p>
+		<a href="javascript:history.back();">返回</a>
+		</div>
+	</div>
+	
+	<div class="main">
+	   <div class="title">
+		<p>修改卖品信息</p>
+	   </div>
+		<hr>
+
+	   <form method="POST"  enctype="multipart/form-data" >
+		<div class="con0">
+		 卖品名称:<input type="text" name="product_name" style="width:200px;height:20px">
+
+		</div>
+
+       <div class="con2">
+		<p>卖品描述:</p><textarea name="text_area"   cols="40"   rows="4"   style="overflow:hidden"></textarea>
+	   </div>
+
+       <div class="con9">
+                <p>卖品分类:</p>
+
+			<div><input type="checkbox" name="check_list" value="fruit" >水果类</div>
+
+			<div><input type="checkbox" name="check_list" value="vegetable">蔬菜类
+			</div>
+	    </div>
+
+	   <div class="con3">
+		   价格:<input type="text" name="price" style="width:40px;height:20px">/斤
+	   </div>
+
+		<div class="con3">
+		   数量:<input type="text" name="count" style="width:40px;height:20px">
+	   </div>
+
+	   <div class="con4">
+		   生产地址:<input type="text" name="address" style="width:200px;height:20px">
+	   </div>
+	   <div class="con5">
+		   卖家联系电话:<input type="text" name="phone" style="width:200px;height:20px">
+	   </div>
+
+        <div class="con1">
+            <p>卖品图片:</p>
+               <div id="picViewsBox"></div>
+
+               <input type="file"  name="files" id="upMultilImages" multiple="multiple"   onchange="javascript:multiImagePreview();" accept="image/*"   />
+
+       </div>
+            <input type="text" name="pid"  value="" style="visibility: hidden">
+	   <div class="con6">
+		   <input type="submit" name="shop" value="修改" style="width:100px;height:40px" class="con7">
+		   <input type="button" name="shop" value="删除卖品" style="width:100px;height:40px" class="con8">
+	   </div>
+
+       </form>
+	</div>
+	
+	
+<script type="text/javascript">
+	var all_picW = "70px";//预览的宽度
+	var all_picH = "70px";//预览的高度
+    function multiImagePreview(avalue) {
+        var upMultilImagesObj = document.getElementById("upMultilImages");
+        var picViewsBox = document.getElementById("picViewsBox");
+        picViewsBox.innerHTML = "";
+        var fileList = upMultilImagesObj.files;
+        for (var i = 0; i < fileList.length; i++) {            
+            picViewsBox.innerHTML += "<div style='float:left' > <img id='img" + i + "'  /> </div>";
+            var picjPreviewInfo = document.getElementById("img"+i); 
+            if (upMultilImagesObj.files && upMultilImagesObj.files[i]) {
+                
+                picjPreviewInfo.style.display = 'block';
+                picjPreviewInfo.style.width = all_picW;
+                picjPreviewInfo.style.height = all_picH;
+               
+                picjPreviewInfo.src = window.URL.createObjectURL(upMultilImagesObj.files[i]);
+            } else {
+                //IE
+                upMultilImagesObj.select();
+                var picTagSrc = document.selection.createRange().text;
+                alert(picTagSrc);
+                var localImagId = document.getElementById("img" + i);
+                //设置初始大小
+                localImagId.style.width = all_picW;
+                localImagId.style.height = all_picH;
+                //图片异常捕捉
+                try {
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = picTagSrc;
+                }
+                catch (e) {
+                    alert("图片格式不正确!");
+                    return false;
+                }
+                picjPreviewInfo.style.display = 'none';
+                document.selection.empty();
+            }
+			if(upMultilImagesObj.files.length > 5){
+                alert('最多只能添加五张图片'); 
+                return false; 
+            }
+        }  
+        return true;
+    }
+    loca=location.pathname;
+    $('form').attr('action',loca);
+
+    $('[name=pid]').val(loca.substr(14))
+</script>
+
+</body>
+</html>

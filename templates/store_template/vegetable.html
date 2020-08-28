@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<style>
+	*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		body{
+			background:url("/static/index_img/beijin.jpg");
+		}
+		
+		.header{
+			width: 1200px;
+			height: 70px;
+			background-color: #44A23D;
+			margin: 0 auto;
+		}
+		
+		.header p{
+			float: left;
+			font-size: 30px;
+			margin-top: 15px;
+			font-style: italic;
+			margin-left: 10px;
+			color: white;
+			
+		}
+		
+		.logo img{
+			height: 60px;
+			margin-left: 20px;
+			float: left;
+			margin-top: 5px;
+		}
+		
+		.back a{
+			float: right;
+			font-size: 20px;
+			font-style:normal;
+			text-decoration: none;
+			margin-right: 20px;
+			margin-top: 20px;
+			color: white;
+			border: 1px solid white;
+			border-radius: 5px;
+		}
+		
+		.search-box img{
+			height: 25px;
+		}
+		
+		.search-box{
+			width:300px;
+			height: 70px;
+			float: left;
+			margin-left: 275px;
+		}
+		
+		.search-box input{
+		     width:300px;
+	         height: 30px;
+	         border-radius: 5px;
+			 position: absolute;
+			 margin-top: 20px
+		}
+	    
+		.search-box a{
+			position: absolute;
+			margin-top: 23px;
+			margin-left: 270px;
+		}
+		
+		.main{
+		width: 1200px;
+		height: 700px;
+		background-color: white;
+		margin: 0 auto;
+	}
+	
+	.main img{
+		height: 200px;
+		width: 200px;
+	}
+	
+	.main p{
+		text-align: center;
+	}
+	
+	.main li{
+		float: left;
+		list-style-type: none;
+		margin-left: 80px;
+		margin-top: 10px;
+		height: 250px;
+	}
+	
+	</style>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="header">
+	   <div class="logo"><img src="/static/test_img/farm_logo_transparent.png" alt="">
+		</div>
+		    <p>蔬菜类</p>
+		   <div class="search-box">
+            <input type="text" name="search" placeholder="请搜索...">
+			<a href=""><img src="/static/test_img/icon_search.png" alt=""></a>
+		   </div>
+        <div class="back">
+		<a href="/index/">返回首页</a>
+		</div>
+	</div>
+	
+	<div class="main">
+	  <ul>
+		<li>
+		  <div><a href=""><img src="/static/test_img/zhusun.jpg" alt="..."></a></div>
+			
+			<div class="describe"><p>化痰止咳, 营养丰富,降血压</p></div>
+			<div class="money"><p>￥17/斤</p></div>
+			
+		</li>
+		  
+		  <li>
+		  <div><a href=""><img src="/static/test_img/zhusun.jpg" alt="..."></a></div>
+			
+			<div class="describe"><p>化痰止咳, 营养丰富,降血压</p></div>
+			<div class="money"><p>￥17/斤</p></div>
+			
+		</li>
+		  
+		  <li>
+		  <div><a href=""><img src="/static/test_img/zhusun.jpg" alt="..."></a></div>
+			
+			<div class="describe"><p>化痰止咳, 营养丰富,降血压</p></div>
+			<div class="money"><p>￥17/斤</p></div>
+			
+		</li>
+		  
+		  <li>
+		  <div><a href=""><img src="/static/test_img/zhusun.jpg" alt="..."></a></div>
+			
+			<div class="describe"><p>化痰止咳, 营养丰富,降血压</p></div>
+			<div class="money"><p>￥17/斤</p></div>
+			
+		</li>
+		  
+		  <li>
+		  <div><a href=""><img src="/static/test_img/zhusun.jpg" alt="..."></a></div>
+			
+			<div class="describe"><p>化痰止咳, 营养丰富,降血压</p></div>
+			<div class="money"><p>￥17/斤</p></div>
+			
+		</li>
+		  
+		  <li>
+		  <div><a href=""><img src="/static/test_img/zhusun.jpg" alt="..."></a></div>
+			
+			<div class="describe"><p>化痰止咳, 营养丰富,降血压</p></div>
+			<div class="money"><p>￥17/斤</p></div>
+			
+		</li>
+		  
+		
+		
+	  </ul>
+		
+	</div>
+    <script>
+        $.ajax({
+            url:'/store/vegetable/',
+            method:'POST',
+            success:function (data) {
+                console.log(data);
+                images=data["image"];
+                states=data["state"];
+                pro_content='';
+                for(var i=0;i<data['name'].length;i++) {
+                    pro_content += '<li> <div><a href="/store/shop/' + data['ids'][data["name"][i]] + '"><img src="/media/' + images[data["name"][i]][0].image + '" alt="..."></a></div> <div class="describe"><p>' + states[data["name"][i]] + '</p></div> <div class="money"><p>￥' + data["price"][data["name"][i]] + '/斤</p></div></li>';
+                }
+                $('.main ul').html(pro_content)
+            }
+        })
+    </script>
+</body>
+</html>

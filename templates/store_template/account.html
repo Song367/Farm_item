@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: url("/static/index_img/beijin.jpg")
+        }
+
+        .header {
+            width: 1200px;
+            height: 70px;
+            background-color: #44A23D;
+            margin: 0 auto;
+        }
+
+        .header img {
+            height: 60px;
+            margin-left: 20px;
+            float: left;
+            margin-top: 5px;
+        }
+
+        .header p {
+            float: left;
+            font-size: 30px;
+            margin-top: 15px;
+            font-style: italic;
+            margin-left: 10px;
+            color: white;
+        }
+
+        .header a {
+            float: right;
+            font-size: 20px;
+            font-style: normal;
+            text-decoration: none;
+            margin-right: 20px;
+            margin-top: 20px;
+            color: white;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+
+        .main {
+            width: 1200px;
+            height: 800px;
+            margin: 0 auto;
+            background-color: white;
+        }
+
+        .title {
+            width: 300px;
+            height: 30px;
+            position: absolute;
+            margin-left: 150px;
+            margin-top: 60px;
+            font-size: 20px;
+        }
+
+        hr {
+            background-color: #EEEEEE;
+            width: 850px;
+            margin: 0px auto;
+            border: 1px solid #EEEEEE;
+        }
+
+        .con {
+            width: 900px;
+
+            position: absolute;
+            margin-top: 100px;
+            border: 1px solid #EEEEEE;
+            margin-left: 150px;
+        }
+
+        .user {
+            margin-top: 30px;
+            margin-left: 40px;
+            margin-bottom: 10px;
+        }
+
+        .user p {
+            margin-bottom: 10px;
+        }
+
+        .user input {
+            margin-bottom: 10px;
+        }
+
+        .pay {
+            margin-left: 40px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .pay p {
+            margin-bottom: 10px;
+        }
+
+        .pay input {
+            margin-bottom: 10px;
+        }
+
+        .list {
+            margin-left: 40px;
+            margin-top: 10px;
+        }
+
+        .list p {
+            margin-bottom: 10px;
+        }
+
+        .list table {
+            text-align: center;
+        }
+
+        .money {
+            width: 900px;
+            height: 60px;
+        {#position: absolute;#} border: 1px solid #EEEEEE;
+            margin-left: 150px;
+            display: block;
+        {#margin-top: 570px;#} background-color: #EEEEEE;
+        }
+
+        .total {
+            width: 200px;
+            height: 60px;
+            float: right;
+        }
+
+        .total p {
+            float: right;
+            font-size: 30px;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+
+        .total em {
+            float: left;
+            margin-top: 20px;
+        }
+
+        .sub {
+            width: 900px;
+            height: 60px;
+            position: absolute;
+            margin-left: 150px;
+            margin-top: 635px;
+        }
+
+        .subbox {
+            width: 150px;
+            height: 60px;
+            background-color: #FEA712;
+            float: right;
+            font-size: 30px;
+            color: white;
+        }
+
+
+    </style>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+<div class="header">
+    <div class="logo"><img src="/static/test_img/farm_logo_transparent.png" alt="">
+        <p>结算页</p>
+        <a href="#">返回购物车</a>
+    </div>
+</div>
+
+<div class="main">
+    <form method="POST" action="/store/order/">
+        <div class="title">
+            填写并核对订单信息
+        </div>
+
+        <div class="con">
+            <div class="user">
+                <p><b>收件人信息</b></p>
+                收件人姓名:<input type="text" name="username" style="width:100px;height:20px"><br>
+                收件人地址:<input type="text" name="address" style="width:200px;height:20px"><br>
+                收件人电话:<input type="text" name="phone" style="width:200px;height:20px">
+            </div>
+            <hr>
+
+            <div class="pay">
+                <p><b>支付方式</b></p>
+                <input type="checkbox" name="pay" value="货到付款" >货到付款<br>
+                <input type="checkbox" name="pay" value="线上付款">在线付款
+            </div>
+            <hr>
+
+            <div class="list">
+                <p><b>送货清单</b></p>
+                <p id="info">
+                    <!--     <table border="1" cellspacing="0" bordercolor="#EEEEEE">
+                         <tr>
+                         <td width="200px" height="100px"><img src="/static/test_img/caomei.jpg" alt="" height="60px"><p>草莓</p></td>
+                         <td width="100px">￥30</td>
+                         <td width="100px">x1</td>
+                         <td width="100px">有货</td>
+                         </tr>
+                         </table>
+                         -->
+                </p>
+            </div>
+            <input type="text" name="id" style="display: none">
+            <input type="text" name="sname" style="display: none">
+        </div>
+
+        <div class="money">
+            <div class="total">
+                <em>应付总额:</em>
+                <p>￥<span id="pricess">30</span></p>
+                <input  type="text" name="prices" style="display: none">
+            </div>
+        </div>
+
+        <div class="sub">
+            <input class="subbox" type="submit" value="购买">
+        </div>
+    </form>
+</div>
+
+<script>
+    if (sessionStorage.getItem('name') == null) {
+        alert('请前往登录');
+        location.href = '/user/login/';
+    }
+    $('.logo a').click(function () {
+        window.history.go(-1);
+    });
+
+    $.ajax({
+        url: '/store/trans_shopCar/',
+        method: 'POST',
+        data: {name: sessionStorage.getItem('name')},
+        success: function (data) {
+            console.log(data);
+            var text = data['data'];
+            var image = data['image'];
+            var dis = '';
+            var id='';
+            for (var i = 0; i < text.length; i++) {
+                id +=data['id'][text[i]['name']];
+                dis += '<table border="1" cellspacing="0" bordercolor="#EEEEEE">\n' +
+                    '                <tr>\n' +
+                    '                <td width="200px" height="100px"><img src="/media/' + image[text[i]['name']][0].image + '" alt="" height="60px"><p>' + text[i]['name'] + '</p></td>\n' +
+                    '                <td width="100px">￥' + text[i]['price'] + '</td>\n' +
+
+                    '\t\t        <td width="100px">有货</td>\n' +
+                    '                </tr>\n' +
+                    '                </table>'
+            }
+            //console.log(id);
+            $('#info').html(dis);
+            $('[name=id]').val(id);
+
+        }
+    });
+    $('#pricess').html(sessionStorage.getItem('price'));
+    $('[name=sname]').val(sessionStorage.getItem('name'));
+    $('[name=prices]').val(sessionStorage.getItem('price'))
+</script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<link rel="stylesheet" href="/static/css/shop.css">
+	<script src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="header">
+	   <div class="logo"><img src="/static/test_img/farm_logo_transparent.png" alt="">
+		</div>
+		   <div class="search-box">
+            <input type="text" name="search" placeholder="请搜索...">
+			<a href=""><img src="/static/test_img/icon_search.png" alt=""></a>
+		   </div>
+        <div class="back">
+		<a href="/index/">返回首页</a>
+		</div>
+	</div>
+	
+	<div class="main">
+	    <div class="bar">
+			<ul>
+			<li><a href="">首页</a></li>
+			<li><p>//</p></li>
+			<li><a href="">水果类</a></li>
+		    <li><p>//</p></li>
+		    <li>草莓</li>
+			</ul>
+		</div>
+		
+	    <div class="con">
+		    <div class="banner">
+            <div class="large_box">
+                <ul>
+                    <li>
+                        <img src="/static/test_img/caomei.jpg" width="420" height="350" alt="">
+                    </li>
+                    <li>
+                        <img src="/static/test_img/caomei1.jpg" width="420" height="350" alt="">
+                    </li>
+                    <li>
+                        <img src="/static/test_img/caomei2.jpg" width="420" height="350" alt="">
+                    </li>
+                    <li>
+                        <img src="/static/test_img/caomei3.jpg" width="420" height="350" alt="">
+                    </li>
+                    <li>
+                        <img src="/static/test_img/caomei4.jpg" width="420" height="350" alt="">
+                    </li>
+                  
+                </ul>
+            </div>
+            <div class="small_box">
+                <span class="btns lefts_btn" onclick="left_btn()"></span>
+                <div class="small_list">
+                    <ul>
+                        <li class="on">
+                            <img src="/static/test_img/caomei.jpg" width="70" height="50" alt="">
+                            <div class="bun_bg"></div>
+                        </li>
+                        <li class="">
+                            <img src="/static/test_img/caomei1.jpg" width="70" height="50" alt="">
+                            <div class="bun_bg"></div>
+                        </li>
+                        <li class="">
+                            <img src="/static/test_img/caomei2.jpg" width="70" height="50">
+                            <div class="bun_bg"></div>
+                        </li>
+                        <li class="">
+                            <img src="/static/test_img/caomei3.jpg" width="70" height="50" alt="">
+                            <div class="bun_bg"></div>
+                        </li>
+                        <li class="">
+                            <img src="/static/test_img/caomei4.jpg" width="70" height="50" alt="">
+                            <div class="bun_bg"></div>
+                        </li>
+                       
+                    </ul>
+                </div>
+                <span class="btns rights_btn" onclick="right_btn()"></span>
+            </div>
+        </div>
+			
+		    <div class="inform">
+			    <div class="inform1">
+				  名称:<p>草莓</p>
+			    </div>
+				
+			    <div class="inform2">
+				   商品描述:<p>草莓富含丰富的维生素C。</p>
+				</div>
+			    
+				<div class="inform3">
+                    单价:<p><span id="pprice">30</span>￥/斤</p>
+				</div>
+				<div class="inform4">
+				    生产地址:<p>江苏省南通市</p>
+				</div>
+				<div class="inform5">
+				    商家联系电话：<p>12345678</p>
+				</div>
+				<div class="inform6">
+				    购买数量：<div class="num">
+                                <a href="javascript:;" class="decrement">-</a>
+                                <input type="text" class="itxt" value="1" >
+                                <a href="javascript:;" class="increment">+</a>
+                            </div>
+ 				</div>
+				
+			</div>
+		</div>
+	    
+	    <div class="add">
+			<div class="addbox"><a href="#">加入购物车</a></div>
+		     
+		</div>
+	</div>
+	<script type="text/javascript">
+        Url=location.pathname;
+
+        $('.addbox a').attr('href','/store/shopCar/'+Url.substr(12));
+
+        $('.addbox a').click(function () {
+            $.ajax({
+                url:'/store/shopCar/'+Url.substr(12),
+                method: 'POST',
+                data:{name:sessionStorage.getItem('name')},
+                success:function (data) {
+                    console.log(data)
+                }
+            })
+        });
+
+        if (sessionStorage.getItem('name')==null) {
+            alert('请前往登录');
+            location.href = '/user/login/';
+        }
+
+
+            /* 左按钮 */
+            function left_btn(){
+                var i;
+                var l = $(".small_list").find("ul li").length;
+                $(".small_list").find("ul li").each(function(index){
+                    if($(this).hasClass("on")){
+                        i = index;
+                    }
+                });
+                i--;
+                if(i < 0){
+                    i = l - 1;
+                }
+                t = i;
+                Img(i)
+            };
+
+            /* 右按钮 */
+            function right_btn(){
+                var i;
+                var l = $(".small_list").find("ul li").length;
+                $(".small_list").find("ul li").each(function(index){
+                    if($(this).hasClass("on")){
+                        i = index;
+                    }
+                });
+                i++;
+                if(i > l-1){
+                    i = 0;
+                }
+                t = i;
+                Img(i);
+            };
+
+            /* 图片 */
+            function Img(i){
+                var l = $(".small_list").find("ul li").length;
+                var l_mean;
+                if(l < 5){
+                    l_mean = 0;
+                }else{
+                    l_mean = ((parseInt(l / 5) - 1) * 5) + (l % 5);
+                }
+                var w = 110;
+                $(".large_box").find("ul li").eq(i).fadeIn().siblings().hide();
+                $(".small_list").find("ul li").eq(i).addClass("on").siblings().removeClass("on");
+                var ml = i * w;
+                if(ml <= l_mean * w){
+                    $(".small_list").find("ul").stop().animate({
+                        marginLeft: -ml + "px"
+                    })
+                }else{
+                    $(".small_list").find("ul").stop().animate({
+                        marginLeft: -(l_mean * w) + "px"
+                    })
+                }
+            };
+		
+		$(".increment").click(function() {
+        // 得到当前兄弟文本框的值
+        var n = $(this).siblings(".itxt").val();
+        // console.log(n);
+        n++;
+        $(this).siblings(".itxt").val(n);
+		});
+			
+		$(".decrement").click(function() {
+        // 得到当前兄弟文本框的值
+        var n = $(this).siblings(".itxt").val();
+        if (n == 1) {
+            return false;
+        }
+        // console.log(n);
+        n--;
+        $(this).siblings(".itxt").val(n);
+		});
+
+
+		//数据交互
+        $.ajax({
+            url:Url,
+            method:'POST',
+            success:function (data) {
+                console.log(data);
+                val=data['val'];
+                names=val[0]['name'];
+                image=data['image'];
+                big_image='';
+                small_image='';
+                for(var i=0;i<image[names].length;i++) {
+                    big_image += '<li><img src="/media/' + image[names][i].image + '" width="420" height="350" alt=""></li>';
+                    small_image += '<li class="on"><img src="/media/' + image[names][i].image + '" width="70" height="50" alt=""><div class="bun_bg"></div></li>';
+                }
+                $('.large_box ul').html(big_image);
+                $('.small_list ul').html(small_image);
+                $('.inform1 p').html(names);
+                $('.inform2 p').html(val[0]['product_state']);
+                $('.inform3 span').html(val[0]['price']);
+                $('.inform4 p').html(val[0]['product_address']);
+                $('.inform5 p').html(val[0]['product_phone']);
+            }
+        })
+
+
+       </script>
+	
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <style>
+        body{
+            background:url("/static/index_img/beijin.jpg")
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--    导航栏-->
+
+    <div class="search">
+
+        <div class="logo"><img src="/static/index_img/farm logo transparent.png" alt="...">
+        </div>
+
+        <div class="search-box">
+
+            <input type="text" name="search" placeholder="请搜索...">
+            <a href="#"><img src="/static/index_img/icon_search.png" alt=""></a>
+        </div>
+
+        <div class="header">
+
+            <ul class="right">
+                <li><a href="/user/login/">登录</a></li>
+                <li><a href="/user/reg/">注册</a></li>
+                <li><a href="#">客户服务</a></li>
+                <li class="shopcar"><a href="/store/shopCar/1">购物车</a></li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <div class="nav">
+		
+         <ul class="navlist">
+		  <li><a href="">主页</a></li>
+			 <li><a href="#">分类</a>
+			<ul>
+				<li><a href="/store/fruit/">水果</a></li>
+				<li><a href="/store/vegetable/">蔬菜</a></li>
+			</ul>
+		  </li>
+		  <li><a href="/store/order/">订单</a></li>
+		  <li id="myStore"><a href="#" >我的商品</a></li>
+		  
+		 </ul>
+		
+    </div>
+
+    <!--	主体内容-->
+    <div class="main">
+
+        <div class="con-first">
+            <br>
+            <p>本季节推荐水果类</p>
+            <hr/>
+        </div>
+        <div class="container">
+            <ul>
+
+                <li>
+                    <div><img src="/static/test_img/caomei.jpg" alt="..">
+                    </div>
+                    <p>草莓富含丰富的维生素C。</p>
+                    <p>￥30/斤起
+                        <a href="/store/shop/1"><br><b>立即购买</b></a>
+                    </p>
+                </li>
+
+
+                <li>
+                    <div><img src="/static/index_img/xigua.jpg" alt="..">
+                    </div>
+                    <p>富含维生素A、B1、B2、维c</p>
+                    <p>￥0.6/斤起
+                        <a href="/store/shop/2"><br><b>立即购买</b></a>
+                    </p>
+                </li>
+
+                <li>
+                    <div><img src="/static/index_img/mihoutao.jpg" alt="..">
+                    </div>
+                    <p>利尿通便、美容养颜、开胃消食</p>
+                    <p>￥3/斤起
+                        <a href="/store/shop/3"><br><b>立即购买</b></a>
+                    </p>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+    <div class="line">
+    </div>
+    <div class="maint">
+        <div class="con-second">
+            <br>
+            <p>本季节推荐蔬菜类</p>
+            <hr/>
+        </div>
+        <div class="containert">
+            <ul>
+                <li>
+                    <div><img src="/static/index_img/zhusun.jpg" alt="..">
+                    </div>
+                    <p>化痰止咳, 营养丰富,降血压</p>
+                    <p>￥17/斤起
+                        <a href="/store/shop/4"><br><b>立即购买</b></a>
+                    </p>
+                </li>
+
+                <li>
+                    <div><img src="/static/index_img/huanggua.jpg" alt="..">
+                    </div>
+                    <p>富含维生素E可以起到延缓衰老</p>
+                    <p>￥2.4/斤起
+                        <a href="/store/shop/5"><br><b>立即购买</b></a>
+                    </p>
+                </li>
+
+                <li>
+                    <div><img src="/static/index_img/yangcong.jpg" alt="..">
+                    </div>
+                    <p>预防癌症,维护心血管健康</p>
+                    <p>￥0.5/斤起
+                        <a href="/store/shop/6"><br><b>立即购买</b></a>
+                    </p>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!--服务部分-->
+    <div class="fixlabel">
+        <ul>
+            <li class="fixfirst"><img src="/static/index_img/icon_kefu.png" alt="..."><span>售后咨询</span></li>
+            <li class="fixsecond"><img src="/static/index_img/icon_use.png" alt="..."><span>使用帮助</span></li>
+            <li class="fixthree"><img src="/static/index_img/icon_tui.png" alt=""><span>退货办理</span></li>
+        </ul>
+    </div>
+	
+	<script>
+        $('.fixlabel').on('click',function () {
+           location.href='/store/userHelp';
+        });
+		var nav=document.querySelector('.navlist');
+		var lis=nav.children;
+		for(var i=0;i<lis.length;i++){
+			lis[i].onmouseover=function(){
+				this.children[1].style.display='block';
+			};
+			lis[i].onmouseout=function(){
+				this.children[1].style.display='none';
+			}
+		}
+		$('#myStore').on('click',function () {
+                $.ajax({
+                    url:'/store/getStore/',
+                    method:'POST',
+                    data:{name:sessionStorage.getItem('name')},
+                    success:function (data) {
+                        if (data['status']===104)
+                            location.href='/store/shopRegister/';
+                        if (data['status']===105)
+                            location.href='/store/productManage';
+                }
+            })
+        });
+        $.ajax({
+           url:'/index/',
+           method:'POST',
+           success:function (data) {
+               console.log(data);
+               fid=data['fid'];
+               fimage=data['fimage'];
+               fP='';
+               vP='';
+               vimage=data['vimage'];
+               for(var i=0;i<3;i++){
+                   //console.log(data["fprice"][data['fname'][i]]);
+                   fP +='<li><div><img src="/media/'+fimage[data['fname'][i]][0].image+'" alt=".."></div><p>'+data["fstate"][data["fname"][i]]+'</p><p>￥'+data["fprice"][data['fname'][i]]+'/斤起<a href="/store/shop/'+data["fid"][data["fname"][i]]+'"><br><b>立即购买</b></a></p></li>'
+               }
+               for(var i=0;i<3;i++){
+                   vP +='<li><div><img src="/media/'+vimage[data['vname'][i]][0].image+'" alt=".."></div><p>'+data["vstate"][data["vname"][i]]+'</p><p>￥'+data["v_price"][data['vname'][i]]+'/斤起<a href="/store/shop/'+data["vid"][data["vname"][i]]+'"><br><b>立即购买</b></a></p></li>'
+
+               }
+               $('.container ul').html(fP);
+               $('.containert ul ').html(vP);
+           }
+        })
+	</script>
+</body>
+
+</html>

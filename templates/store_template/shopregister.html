@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}	
+	body{
+		background: url("/static/index_img/beijin.jpg")
+	}
+    input{
+        outline: none;
+    }
+	.login{
+         width: 1200px;
+         height: 750px;
+		 
+		 margin: 0 auto;
+		
+	}
+	
+	.login img{
+		height: 60px;
+		float: left;
+		margin-left: 20px;
+		margin-top: 5px;
+		}
+	
+	.title p{
+			position: absolute;
+		    margin-left: 90px;
+		    margin-top: 15px;
+		    color: white;
+		}
+	.title{
+		font-size: 30px;
+		font-style: italic;
+		background-color: #44A23D;
+		width: 1200px;
+		height: 70px;
+	}
+	
+		.title a{
+			float: right;
+			font-size: 20px;
+			font-style:normal;
+			text-decoration: none;
+			margin-right: 20px;
+			margin-top: 20px;
+			color: white;
+			border: 1px solid white;
+			border-radius: 5px;
+		}
+	
+		
+		.main{
+			width: 900px;
+			height: 600px;
+			border: 1px solid white;
+			border-radius: 20px;
+			margin: 50px auto;
+			background-color: white;
+		}
+		.remind p{
+			margin-left: 150px;
+			margin-top: 50px;
+			margin-bottom: 10px;
+			font-size: 20px;
+		}
+		
+	.con1{
+		margin-left: 200px;
+		margin-bottom: 40px;
+		margin-top: 60px;
+		}
+		
+		.con2{
+			margin-left: 185px;
+			margin-bottom: 40px;
+		}
+		
+		.con3{
+			margin-left: 213px;
+			margin-bottom: 40px;
+		}
+		
+		.con4{
+			margin-left: 185px;
+			margin-bottom: 40px;
+		}
+		
+		.con5{
+			margin-left: 400px;
+		}
+	
+		hr{
+		 height: 1px;
+	     background-color:#FEA712;
+	     width: 590px;
+	     margin: 0px auto;
+	    border: 1px solid #FEA712;
+}
+
+</style>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="login">
+		<div class="title"><img src="/static/test_img/farm_logo_transparent.png" alt=""><p>欢迎注册店铺</p><a href="/index/">返回首页</a></div>
+		
+	<div class="main">
+		<div class="remind">
+		<p>请填写信息</p>
+		</div>
+		<hr>
+		
+		<div class="con1">
+	     店铺名：<input type="text" style="width:400px;height:30px">
+		</div>
+		
+		<div class="con2">
+	     店铺描述：<input type="text" style="width:400px;height:60px">
+		</div>
+		
+		<div class="con3">
+	     地 址：<input type="text" style="width:400px;height:30px">
+		</div>
+		
+		<div class="con4">
+	     联系电话：<input type="text" style="width:400px;height:30px">
+		</div>
+		
+		<div class="con5">
+	      <input type="button" style="width:90px;height:30px;" value="注册" name="bt" />
+		</div>
+	</div>
+</div>
+<script>
+    if (sessionStorage.getItem('name')==null) {
+            alert('请前往登录');
+            location.href = '/user/login/';
+        }
+
+    $('[name=bt]').click(function () {
+
+        $.ajax({
+            method: 'POST',
+            url: '/store/Store_reg/',
+            data: {name:$('.con1').children('input').val(),
+                state:$('.con2').children('input').val(),
+                address:$('.con3').children('input').val(),
+                phone:$('.con4').children('input').val(),
+                pre_name:sessionStorage.getItem('name')},
+            success: function (data) {
+                location.href='/store/productManage/'
+            }
+        })
+    })
+</script>
+</body>
+</html>

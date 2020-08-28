@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		body{
+			background: url("/static/index_img/beijin.jpg") no-repeat center 0px;
+		}
+		
+		.header{
+			width: 1200px;
+			height: 70px;
+			background-color: #44A23D;
+			margin: 0 auto;
+		}
+		
+		.header img{
+			height: 60px;
+			margin-left: 20px;
+			float: left;
+			margin-top: 5px;
+		}
+		
+		.header p{
+			float: left;
+			font-size: 30px;
+			margin-top: 15px;
+			font-style: italic;
+			margin-left: 10px;
+			color: white;
+		}
+		
+		.header a{
+			float: right;
+			font-size: 20px;
+			font-style:normal;
+			text-decoration: none;
+			margin-right: 20px;
+			margin-top: 20px;
+			color: white;
+			border: 1px solid white;
+			border-radius: 5px;
+		}
+		
+		.main{
+			
+			width: 1200px;
+			background-color: white;
+			margin:0 auto;
+		}
+		.list{
+		    width: 1200px;
+			height: 40px;
+			background-color: #EEEEEE;
+			margin: 0px auto;
+		}
+		
+		.list li{
+			float: left;
+			list-style-type: none;
+			border-right: 1px solid black;
+			margin-top: 10px;
+		}
+		
+		.list .li1{
+			
+			padding: 0 135px;
+		}
+		
+		.list .li2{
+			padding: 0 70px;
+		}
+		
+		.list .li3{
+			padding: 0 72px;
+		}
+		.list .li4{
+			padding: 0 70px;
+			border-right: none;
+		}
+		
+		.ta{
+			width: 1200px;
+			height: 700px;
+			margin: 0px auto;
+			
+			text-align: center;
+		}
+		
+		table{
+			margin-bottom: 30px;
+			margin-top: 20px;
+		}
+		
+		.ta img{
+			height: 60px
+		}
+		
+		.shop a{
+			text-decoration: none;
+			color: black;
+		}
+		
+		.shop{
+			overflow: hidden;
+		}
+	</style>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="header">
+	   <div class="logo"><img src="/static/test_img/farm_logo_transparent.png" alt="">
+		   <p>我的订单</p>
+		<a href="/index/">返回首页</a>
+		</div>
+	</div>
+<div class="main">
+	<div class="list">
+	    <ul>
+		<li class="li1">商品</li>
+		<li class="li2">收件人</li>
+		<li class="li3">地址</li>
+		<li class="li3">电话</li>
+		<li class="li3">价格</li>
+		<li class="li4">操作</li>
+		</ul>
+	</div>
+	
+	<div class="ta">
+	     <table border="1" cellspacing="0" bordercolor="#EEEEEE" class="cart-item">
+          <tr bgcolor="#EEEEEE">
+           <td>订单号：</td>
+           <td colspan="2"></td>
+		   <td></td>
+		   <td></td>
+		   <td></td>
+          </tr>
+          <tr>
+           <td width="300px" height="100px">
+			   <div class="shop">
+				   <a href="shop.html"><p>草莓</p></a>
+				   <a href="shop.html"><p>草莓</p></a>
+				   <a href="shop.html"><p>草莓</p></a>
+				   <a href="shop.html"><p>草莓</p></a>
+                   <a href="shop.html"><p>草莓</p></a>
+                   <a href="shop.html"><p>草莓</p></a>
+                   <a href="shop.html"><p>草莓</p></a>
+                   <a href="shop.html"><p>草莓</p></a>
+				
+			   </div>
+           </td>
+           <td width="190px" id="name">王某</td>
+		   <td width="175px" id="address">江苏南通</td>
+           <td width="175px" id="phone">18911111111</td>
+		   <td width="175px"><span id="price">30</span>￥</td>
+		   <td width="170px" class="p-action"><a href="javascript:;"><button>删除订单</button></a></td>
+          </tr>
+         </table>
+
+	</div>
+</div>
+	
+	<script type="text/javascript">
+
+	$.ajax({
+        url: '/store/trans_order/',
+        method: 'POST',
+        data: {name: sessionStorage.getItem('name')},
+        success:function (data) {
+            console.log(data);
+            console.log(data['status']);
+            if(data['status']===401){
+                $('.cart-item').html('没有添加商品到购物车');
+
+            }
+            else if(data['status']===402) {
+                $('.cart-item').html('没有添加订单');
+            }
+            else {
+                var dis = '';
+                for (var i = 0; i < data['pro_name'].length; i++) {
+                    dis += '<a href="/store/shop/"><p>' + data['pro_name'][i] + '</p></a>';
+
+                }
+                $('.shop').html(dis);
+                $('#name').html(data['username']);
+                $('#address').html(data['address']);
+                $('#phone').html(data['phone']);
+                $('#price').html(data['price']);
+            }
+        }
+    });
+        $('.p-action').on('click',function () {
+            alert('确认删除订单？');
+            $.ajax({
+                url:'/store/del_order',
+                method: 'GET',
+                data: {name:sessionStorage.getItem('name')},
+                success:function (data) {
+                    console.log(data);
+                }
+            })
+        })
+	</script>
+</body>
+</html>

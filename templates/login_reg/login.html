@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>农产品销售服务网登录</title>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <style>
+        *{margin: 0;padding:0}
+        body{background: url("/static/beijin.png") no-repeat;background-size: cover;z-index: 1;}
+        input{outline: none}
+        .box{width: 300px;height:300px;margin: 10% auto;padding-top: 20px;box-shadow: -2px 0px 30px 10px rgba(0,0,0,.9);border-radius: 20px;background-color: rgba(255,255,255,0.2)}
+        .box img{width: 60px;height: 70px;display: block;margin: 0 auto}
+        .web_name{width: 200px;display: block;margin:5px auto;text-align: center;font-family: 楷体;font-size: 20px;font-weight: bold}
+        .user_name{width: 200px;height:40px;margin: 20px auto;display: block;text-align: center;border-radius: 5px;border: 0;}
+        .user_name:hover{border:2px solid #96DF5B}
+        .user_pwd{width: 200px;height:40px;margin: 20px auto;display: block;text-align: center;border-radius: 5px;border: 0;}
+        .user_pwd:hover{border:2px solid #96DF5B}
+        .user_login{width: 80px;height:35px;margin:10px 0 0 110px;display: inline-block;border-radius: 15px;border: none}
+        .user_login:hover{border:2px solid #96DF5B}
+        .user_login_reg{width:80px;height: 15px;margin-left: 10px;font-size: 10px;margin-top: 8px;display: inline-block;}
+        a{text-decoration: none;color: moccasin}
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <img src="/static/logo/farm_logo_transparent.png">
+    <span class="web_name">农产品销售服务网</span>
+    <form>
+        <input type="text" name="username" placeholder="用户名" class="user_name" autocomplete="off">
+        <input type="password" name="passwd" placeholder="密码" class="user_pwd" autocomplete="off">
+        <input type="button" name="login" value="登录" class="user_login">
+        <a class="user_login_reg" href="/user/reg/">没有用户？注册</a>
+    </form>
+</div>
+<script>
+
+    $('[name=login]')[0].disabled='disabled';
+    $('[type=text]').change(function () {
+        var usernames=$(this).val();
+        $.ajax({
+            url:'/user/login/',
+            type:'POST',
+            data:{f_name:usernames},
+            success:function (data) {
+                if(data['status']==='102'){
+                    $('[type=text]').css('border','2px solid red');
+                    $('[type=text]').val('');
+                    $('[type=text]').attr('placeholder','用户名不存在');
+                }
+                else{
+                    $('[type=text]').css('border','');
+                }
+            }
+        })
+    });
+    $('[name=passwd]').change(function () {
+        var password1=$(this).val();
+        var names=$('[name=username]').val();
+        $.ajax({
+            url:'/user/login_pwd/',
+            type: 'POST',
+            data:{name:names,password:password1},
+            success:function (data) {
+                if(data['status']==='103'){
+                    $('[name=passwd]').css('border','2px solid red');
+                    $('[name=passwd]').val('');
+                    $('[name=passwd]').attr('placeholder','密码错误');
+
+                }
+                else{
+                    $('[name=passwd]').css('border','');
+                    $('[name=login]')[0].disabled='';
+                }
+                if($('[name=passwd]').val()===''){
+                    $('[name=login]')[0].disabled='disabled';
+                }
+                if($('[name=passwd]').attr('placeholde')==='密码错误'){
+                    $('[name=login]')[0].disabled='disabled';
+                }
+            }
+        })
+    });
+    $('[name=login]').on('click',function () {
+        location.href='/index/';
+       sessionStorage.setItem('name',$('[type=text]').val());
+    })
+</script>
+</body>
+</html>

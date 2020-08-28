@@ -1,0 +1,425 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<script src="/static/js/jquery.min.js"></script>
+	<style>
+	*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		body{
+			background:url("/static/index_img/beijin.jpg");
+		}
+		
+		.header{
+			width: 1200px;
+			height: 70px;
+			background-color: #44A23D;
+			margin: 0 auto;
+		}
+		
+		.header img{
+			height: 60px;
+			margin-left: 20px;
+			float: left;
+			margin-top: 5px;
+		}
+		
+		.header p{
+			float: left;
+			font-size: 30px;
+			margin-top: 15px;
+			font-style: italic;
+			margin-left: 10px;
+			color: white;
+		}
+		
+		.header a{
+			float: right;
+			font-size: 20px;
+			font-style:normal;
+			text-decoration: none;
+			margin-right: 20px;
+			margin-top: 20px;
+			color: white;
+			border: 1px solid white;
+			border-radius: 5px;
+		}
+		
+		.w{
+			width: 1200px;
+			height: 800px;
+			margin: 0 auto;
+			background-color: white;
+		}
+		
+		.bar{
+			font-size: 20px;
+			width: 80px;
+			height: 45px;
+			line-height: 60px;
+			border-bottom: 3px solid #FEA712;
+		}
+		
+		.list{
+		    width: 1200px;
+			height: 40px;
+			background-color: #EEEEEE;
+			margin: 10px auto;
+		}
+		
+		.list li{
+			float: left;
+			list-style-type: none;
+			border-right: 1px solid black;
+			margin-top: 10px;
+		}
+		
+		
+		.list .li1{
+			
+			padding: 0 160px;
+		}
+		
+		.list .li2{
+			padding: 0 80px;
+		}
+		
+		.list .li3{
+			padding: 0 110px;
+		}
+		
+		.list .li4{
+			padding: 0 70px;
+		}
+		.list .li5{
+			padding: 0 95px;
+			border-right: none;
+		}
+		
+		.ta{
+			width: 1200px;
+			
+			margin: 0px auto;
+			
+			text-align: center;
+		}
+		
+		table{
+			margin-bottom: 30px;
+			margin-top: 20px;
+		}
+		
+		.ta img{
+			height: 60px
+		}
+		
+		.sum{
+			width: 1199px;
+			height: 60px;
+			border: 1px solid #EEEEEE;
+		}
+		
+		.total{
+			float: left;
+			margin-left: 700px;
+			margin-top: 20px
+		}
+		
+		.pay{
+			float: right;
+		    color: white;
+			font-size: 25px;
+			width: 100px;
+			height: 60px;
+			border: 1px solid #FEA712;
+			background-color: #FEA712
+		}
+		
+		.pay p{
+			text-align: center;
+			margin-top: 10px;
+			margin-right: 1px;
+		}
+		
+		.num {
+            width: 80px;
+            height: 22px;
+			margin-left:80px 
+         }
+		
+		.decrement,.increment {
+            float: left;
+            border: 1px solid #cacbcb;
+            height: 18px;
+            line-height: 18px;
+            padding: 1px 0;
+            width: 16px;
+            text-align: center;
+            color: #666;
+            margin: 0;
+            background: #fff;
+            margin-left: -1px;
+        }
+		
+		.itxt {
+            float: left;
+            border: 1px solid #cacbcb;
+            width: 42px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            padding: 1px;
+            margin: 0;
+            margin-left: -1px;
+            font-size: 12px;
+            font-family: verdana;
+            color: #333;
+            -webkit-appearance: none;
+         }
+		
+		a{
+			text-decoration: none;
+			
+		}
+		
+		.amount-sum{
+			float: left;
+			margin-top: 20px;
+			margin-left: 20px;
+		}
+		
+		.amount-sum em{
+			margin-left: 5px;
+			margin-right: 5px;
+			color: crimson;
+		}
+		
+		.total em{
+			color: crimson;
+			font-size: 20px;
+		}
+    
+		.p-action a{
+			color: black;
+		}
+        .pay a{
+            color: black;
+        }
+	</style>
+</head>
+
+<body>
+	 <div class="header">
+	   <div class="logo"><img src="/static/test_img/farm_logo_transparent.png" alt="">
+		   <p>购物车</p>
+		<a href="/index/">返回首页</a>
+		</div>
+	</div>
+	
+	<div class="w">
+		<div class="bar">
+			全部商品
+		</div>
+		
+		<div class="list">
+	    <ul>
+		<li class="li1">商品</li>
+		<li class="li2">单价</li>
+		<li class="li3">数量</li>
+	    <li class="li4">小计</li>
+		<li class="li5">操作</li>
+		</ul>
+	    </div>
+		
+		<div class="ta">
+	     <table border="1" cellspacing="0" bordercolor="#EEEEEE" class="cart-item">
+          
+          <tr >
+		   
+           <td width="350px" height="100px"><img src="/static/test_img/caomei.jpg" alt=""><p>草莓</p></td>
+           <td width="193px" class="p-price">￥30.00</td>
+           <td width="250px" class="p-num">
+			      <div class="num">
+                                <a href="javascript:;" class="decrement">-</a>
+                                <input type="text" class="itxt" value="1" >
+                                <a href="javascript:;" class="increment">+</a>
+                            </div>
+		  </td>
+		   <td width="172px" class="p-sum">￥30.00</td>
+		   <td width="227px" class="p-action"><a href="javascript:;">删除</a></td>
+          </tr>
+         </table>
+			
+		<table border="1" cellspacing="0" bordercolor="#EEEEEE" class="cart-item">
+          
+          <tr >
+		   
+           <td width="350px" height="100px"><img src="/static/test_img/caomei.jpg" alt=""><p>草莓</p></td>
+           <td width="193px" class="p-price">￥30.00</td>
+           <td width="250px" class="p-num">
+			      <div class="num">
+                                <a href="javascript:;" class="decrement">-</a>
+                                <input type="text" class="itxt" value="1" >
+                                <a href="javascript:;" class="increment">+</a>
+                            </div>
+		  </td>
+		   <td width="172px" class="p-sum">￥30.00</td>
+		   <td width="227px" class="p-action"><a href="javascript:;">删除</a></td>
+          </tr>
+         </table>
+		
+	    </div>
+		
+		<div class="sum">
+			<div class="amount-sum">已经选<em>2</em>件商品</div>
+		    <div class="total">总价：<em><span id="pricess">60.00</span>￥</em></div>
+            <div class="pay"><p><a href="/store/account/11">去结算</a></p></div>
+		</div>
+	</div>
+     
+	<script type="text/javascript">
+        if (sessionStorage.getItem('name')==null) {
+            alert('请前往登录');
+            location.href = '/user/login/';
+        }
+
+		$(function() {
+    
+   
+		
+	$(".increment").click(function() {
+        // 得到当前兄弟文本框的值
+        var n = $(this).siblings(".itxt").val();
+        // console.log(n);
+        n++;
+        $(this).siblings(".itxt").val(n);
+        // 3. 计算小计模块 根据文本框的值 乘以 当前商品的价格  就是 商品的小计
+        // 当前商品的价格 p  
+        var p = $(this).parents().parent().siblings(".p-price").html();
+        // console.log(p);
+        p = p.substr(1);
+        console.log(p);
+        var price = (p * n).toFixed(2);
+        // 小计模块 
+        // toFixed(2) 可以让我们保留2位小数
+        $(this).parents().parent().siblings(".p-sum").html("￥" + price);
+        getSum();
+    });
+		
+		
+    $(".decrement").click(function() {
+        // 得到当前兄弟文本框的值
+        var n = $(this).siblings(".itxt").val();
+        if (n == 1) {
+            return false;
+        }
+        // console.log(n);
+        n--;
+        $(this).siblings(".itxt").val(n);
+        // var p = $(this).parent().parent().siblings(".p-price").html();
+        // parents(".p-num") 返回指定的祖先元素
+        var p = $(this).parents().parent().siblings(".p-price").html();
+        // console.log(p);
+        p = p.substr(1);
+        console.log(p);
+        // 小计模块 
+        $(this).parents().parent().siblings(".p-sum").html("￥" + (p * n).toFixed(2));
+        getSum();
+    });
+		
+		$(".itxt").change(function() {
+        // 先得到文本框的里面的值 乘以 当前商品的单价 
+        var n = $(this).val();
+        // 当前商品的单价
+        var p = $(this).parents(".p-num").siblings(".p-price").html();
+        // console.log(p);
+        p = p.substr(1);
+        $(this).parents(".p-num").siblings(".p-sum").html("￥" + (p * n).toFixed(2));
+        getSum();
+    });
+		
+		function getSum() {
+        var count = 0; // 计算总件数 
+        var money = 0; // 计算总价钱
+        $(".itxt").each(function(i, ele) {
+            count += parseInt($(ele).val());
+        });
+        $(".amount-sum em").text(count);
+        $(".p-sum").each(function(i, ele) {
+            money += parseFloat($(ele).text().substr(1));
+        });
+        $(".total em").text("￥" + money.toFixed(2));
+    }
+		
+		$(".p-action a").click(function() {
+        // 删除的是当前的商品 
+        $(this).parents(".cart-item").remove();
+        
+    });
+});
+
+    $.ajax({
+        url:'/store/trans_shopCar/',
+        method:'POST',
+        data:{name:sessionStorage.getItem('name')},
+        success:function (data) {
+            console.log(data);
+            var text=data['data'];
+            var image = data['image'];
+            var dis='';
+            var sum_price=0;
+            for(var i=0;i<text.length;i++){
+                sum_price +=text[i]['price'];
+                dis +='<table border="1" cellspacing="0" bordercolor="#EEEEEE" class="cart-item">\n' +
+                    '          \n' +
+                    '          <tr >\n' +
+                    '\t\t   \n' +
+                    '           <td width="350px" height="100px" id="f1"><img src="/media/'+image[text[i]['name']][0].image+'" alt=""><p>'+text[i]['name']+'</p></td>\n' +
+                    '           <td width="193px" class="p-price">￥'+text[i]['price']+'</td>\n' +
+                    '           <td width="250px" class="p-num">\n' +
+                    '\t\t\t      <div class="num">\n' +
+                    '                                <a href="javascript:;" class="decrement">-</a>\n' +
+                    '                                <input type="text" class="itxt" value="1" >\n' +
+                    '                                <a href="javascript:;" class="increment">+</a>\n' +
+                    '                            </div>\n' +
+                    '\t\t  </td>\n' +
+                    '\t\t   <td width="172px" class="p-sum">￥'+text[i]['price']+'</td>\n' +
+                    '\t\t   <td width="227px" class="p-action"><a href="javascript:;">删除</a></td>\n' +
+                    '          </tr>\n' +
+                    '         </table>'
+            }
+            $('.ta').html(dis);
+            //console.log(sum_price);
+
+            $('#pricess').html(sum_price);
+            sessionStorage.setItem('price',sum_price);
+
+
+
+
+            $('.p-action a').click(function () {
+                //$.ajax({
+                    //url:
+                //})
+                var name=$(this).parent('td').siblings('#f1').children('p')[0].innerText;
+                var id=data['id'][name];
+
+                $.ajax({
+                    url:'/store/del_shopCar/',
+                    method:'POST',
+                    data:{name:sessionStorage.getItem('name'),id:id},
+                    success:function (data) {
+                        console.log(data)
+                    }
+                })
+            })
+        }
+    })
+
+	</script>
+</body>
+</html>
